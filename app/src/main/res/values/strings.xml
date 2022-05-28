@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SoftExpert</string>
+    <string name="isUsed">is Used</string>
+    <string name="newText">New</string>
+</resources>

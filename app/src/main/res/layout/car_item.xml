@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="car"
+            type="eg.gov.iti.softexpert.business.entities.Car" />
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/carImage"
+                imageUrl="@{car.imageUrl}"
+                placeholder="@{@drawable/ic_baseline_add_reaction_24}"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_baseline_add_reaction_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+            <TextView
+                android:id="@+id/carBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
+                android:text="@{car.brand}"
+                android:textSize="17sp"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@+id/carImage"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="carName" />
+
+            <TextView
+                android:id="@+id/constYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="@{car.constractionYear}"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="@id/carBrand"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/carBrand"
+                app:layout_constraintTop_toBottomOf="@id/carBrand"
+                tools:text="constYear" />
+
+            <TextView
+                android:id="@+id/isUsedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{car.isUsed ? @string/isUsed : @string/newText}"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="@id/constYear"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@id/constYear"
+                app:layout_constraintTop_toBottomOf="@id/constYear"
+                tools:text="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
