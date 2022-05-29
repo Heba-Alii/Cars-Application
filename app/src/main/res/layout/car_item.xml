@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <data>
 
         <variable
@@ -26,12 +27,14 @@
             <ImageView
                 android:id="@+id/carImage"
                 imageUrl="@{car.imageUrl}"
-                placeholder="@{@drawable/ic_baseline_add_reaction_24}"
+                placeholder="@{@drawable/ic_loading_loader_svgrepo_com}"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:src="@drawable/ic_baseline_add_reaction_24"
+                android:padding="6dp"
+                android:src="@drawable/ic_loading_loader_svgrepo_com"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/isUsed" />
 
             <TextView
                 android:id="@+id/carBrand"
@@ -52,11 +55,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:layout_marginStart="14dp"
                 android:text="@{car.constractionYear}"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="@id/carBrand"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="@id/carBrand"
+                app:layout_constraintStart_toEndOf="@+id/carImage"
                 app:layout_constraintTop_toBottomOf="@id/carBrand"
                 tools:text="constYear" />
 
@@ -65,11 +69,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginStart="14dp"
                 android:text="@{car.isUsed ? @string/isUsed : @string/newText}"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="@id/constYear"
                 app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintStart_toStartOf="@id/constYear"
+                app:layout_constraintStart_toEndOf="@+id/carImage"
                 app:layout_constraintTop_toBottomOf="@id/constYear"
                 tools:text="true" />
         </androidx.constraintlayout.widget.ConstraintLayout>

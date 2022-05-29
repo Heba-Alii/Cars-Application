@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface CarUseCase {
+
     suspend fun getCars(pageNumber: Int): Flow<CarResponse>
 
 }

@@ -1,10 +1,11 @@
-package eg.gov.iti.softexpert.main
+package eg.gov.iti.softexpert.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import eg.gov.iti.softexpert.business.entities.Car
 import eg.gov.iti.softexpert.databinding.CarItemBinding
+
 
 class CarHolder(private val binding: CarItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -23,3 +24,4 @@ class CarHolder(private val binding: CarItemBinding) :
     }
 
 }
+

@@ -6,4 +6,3 @@ data class CarResponse(
     @SerializedName("status") val status: Int,
     @SerializedName("data") val data: List<Car>
 )
-

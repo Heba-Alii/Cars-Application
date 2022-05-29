@@ -6,19 +6,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import eg.gov.iti.softexpert.R
 import eg.gov.iti.softexpert.business.entities.DataState
 import eg.gov.iti.softexpert.databinding.FragmentMainBinding
+import eg.gov.iti.softexpert.main.adapter.CarAdapter
+import eg.gov.iti.softexpert.main.utils.Pagination
+import eg.gov.iti.softexpert.main.viewModel.CarViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 
-class MainFragment : Fragment() {
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+class MainFragment @Inject constructor() : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
+
+    @Inject
     lateinit var carAdapter: CarAdapter
-    lateinit var carViewModel: CarViewModel
+
+    private val carViewModel: CarViewModel by viewModels()
+
+    private var pagination: Pagination? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +58,7 @@ class MainFragment : Fragment() {
                 is DataState.Success -> {
                     binding.isLoading = false
                     carAdapter.submitList(it.data.data)
+                    pagination?.isLastPage(it.data.data.size-1)
                 }
                 is DataState.Failure -> {
                     Snackbar.make(binding.root, "Network Error", Snackbar.LENGTH_SHORT).show()
@@ -58,14 +74,27 @@ class MainFragment : Fragment() {
     }
 
     private fun initUi() {
-        carAdapter = CarAdapter()
-        carViewModel = ViewModelProvider(this)[CarViewModel::class.java]
+        startListen()
         binding.carsRV.adapter = carAdapter
         binding.swipeRefresh.setOnRefreshListener {
-            carViewModel.getCars()
             binding.swipeRefresh.isRefreshing = false
+            pagination?.reload()
         }
+    }
 
+    private fun startListen() {
+        if (binding.carsRV.layoutManager is LinearLayoutManager) {
+            pagination = object :
+                Pagination(
+                    1,
+                    binding.carsRV.layoutManager as LinearLayoutManager
+                ) {
+                override fun loadMoreItems(pageNumber: Int) {
+                    carViewModel.getCars(pageNumber)
+                }
+            }
+            pagination?.let { binding.carsRV.addOnScrollListener(it) }
+        }
     }
 
     override fun onDestroyView() {

@@ -1,11 +1,12 @@
-package eg.gov.iti.softexpert.main
+package eg.gov.iti.softexpert.main.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import eg.gov.iti.softexpert.business.entities.Car
+import javax.inject.Inject
 
-class CarAdapter() :
+class CarAdapter @Inject constructor() :
     ListAdapter<Car, CarHolder>(CarsDiffCallback()) {
 
 

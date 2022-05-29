@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface CarApi {
-    @GET("http://demo1585915.mockable.io/api/v1/cars")
+    @GET("api/v1/cars")
     suspend fun getCars(
         @Query("page") page: Int
     ): CarResponse
