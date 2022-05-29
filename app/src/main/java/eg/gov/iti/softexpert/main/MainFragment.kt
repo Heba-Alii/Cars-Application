@@ -56,7 +56,9 @@ class MainFragment @Inject constructor() : Fragment() {
             when (it) {
                 is Success -> {
                     binding.isLoading = false
-                    carAdapter.submitList(it.data.data)
+                    if (it.data.status !=0 ){
+                        carAdapter.submitList(carAdapter.currentList + it.data.data)
+                    }
                 }
                 is Failure -> {
                     Snackbar.make(binding.root, "Network Error", Snackbar.LENGTH_SHORT).show()
@@ -75,7 +77,7 @@ class MainFragment @Inject constructor() : Fragment() {
         binding.carsRV.adapter = carAdapter
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = false
-            pagination?.reload()
+            carViewModel.getCars(0)
         }
     }
 

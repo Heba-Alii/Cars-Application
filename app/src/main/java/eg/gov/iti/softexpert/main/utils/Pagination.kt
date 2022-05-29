@@ -9,18 +9,13 @@ abstract class Pagination(
 ) : RecyclerView.OnScrollListener() {
 
 
-    fun reload() {
-        pageNumber = 1
-        loadMoreItems(pageNumber)
-    }
-
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         val visibleItemCount = layoutManager.childCount
         val totalItemCount = layoutManager.itemCount
 
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-        if (layoutManager.findLastCompletelyVisibleItemPosition() == totalItemCount - 1) {
+        if (totalItemCount != 0 && layoutManager.findLastCompletelyVisibleItemPosition() == totalItemCount - 1) {
             if (visibleItemCount + firstVisibleItemPosition >= totalItemCount) {
                 pageNumber++
                 loadMoreItems(pageNumber)
