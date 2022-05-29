@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import eg.gov.iti.softexpert.R
-import eg.gov.iti.softexpert.business.entities.DataState
+import eg.gov.iti.softexpert.business.entities.DataState.*
 import eg.gov.iti.softexpert.databinding.FragmentMainBinding
 import eg.gov.iti.softexpert.main.adapter.CarAdapter
 import eg.gov.iti.softexpert.main.utils.Pagination
@@ -55,17 +54,15 @@ class MainFragment @Inject constructor() : Fragment() {
     private fun subscribeOnObservers() {
         carViewModel.carDataState.observe(viewLifecycleOwner) {
             when (it) {
-                is DataState.Success -> {
+                is Success -> {
                     binding.isLoading = false
                     carAdapter.submitList(it.data.data)
-                    pagination?.isLastPage(it.data.data.size-1)
                 }
-                is DataState.Failure -> {
+                is Failure -> {
                     Snackbar.make(binding.root, "Network Error", Snackbar.LENGTH_SHORT).show()
                     binding.isLoading = false
-
                 }
-                is DataState.Loading -> {
+                is Loading -> {
                     binding.isLoading = true
                 }
             }
